@@ -1,0 +1,27 @@
+{
+  "width": 201,
+  "height": 341,
+  "cx": [
+    [ "TITRE", 50 ],
+    [ "NOUVEAU", 157 ],
+    [ "PROVENIR", 50 ],
+    [ "ALBUM", 157 ],
+    [ "ARTISTE", 50 ],
+    [ "CREER", 157 ]
+  ],
+  "cy": [
+    [ "TITRE", 62 ],
+    [ "NOUVEAU", 62 ],
+    [ "PROVENIR", 193 ],
+    [ "ALBUM", 193 ],
+    [ "ARTISTE", 297 ],
+    [ "CREER", 297 ]
+  ],
+  "shift": [
+    [ "PROVENIR,TITRE,0", 0 ],
+    [ "PROVENIR,ALBUM,0", 0 ],
+    [ "CREER,ALBUM,0", 0 ],
+    [ "CREER,ARTISTE,0", 0 ]
+  ],
+  "ratio": []
+}

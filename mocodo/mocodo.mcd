@@ -1,0 +1,9 @@
+Titre: id, titre, url, created_at
+Nouveau: id, date
+
+PROVENIR, 11 Titre, 1N Album
+Album: id, libelle, pochette, annee
+
+Artiste: id, nom
+CREER, 11 Album, 0N Artiste
+
