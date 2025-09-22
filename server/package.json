@@ -1,0 +1,19 @@
+{
+  "name": "radio-v.2",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@elevenlabs/elevenlabs-js": "^2.15.0",
+    "express": "^5.1.0",
+    "music-metadata": "^11.9.0",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.15.0"
+  },
+  "description": ""
+}

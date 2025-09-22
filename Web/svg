@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+</head>
+
+<style>
+   * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+   }
+
+   body {
+      height: 100dvh;
+   }
+
+   .container {
+      background: #000;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: url(./pochette.jpg);
+      background-size: cover;
+      position: relative;
+   }
+
+   .container::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+
+      /* generer avec test.py pour avoir la couleur moyenne  */
+      background: rgba(109, 108, 105, 0.3);
+      background: rgba(0, 0, 0, 0.5);
+
+
+      backdrop-filter: blur(36px);
+   }
+
+   .content {
+      z-index: 1000;
+      border: 1px solid #fff;
+      border-radius: 10px;
+      height: 90%;
+      width: 90%;
+
+      /* color: white; */
+      color: white;
+
+      display: flex;
+      flex-direction: column;
+
+      align-items: center;
+
+      justify-content: space-around;
+
+      position: relative;
+
+      /* background: #ffffff05; */
+      background: #00000005;
+
+      backdrop-filter: blur(12px);
+
+      /* display: none; */
+   }
+
+   .heure {
+      font-size: 30px;
+      margin-top: 20px;
+   }
+
+   .date {
+      font-size: 25px;
+      margin-top: 30px;
+   }
+
+   .nouveaute {
+      font-size: 20px;
+      margin-bottom: 15px;
+      visibility: hidden;
+   }
+
+   .nouveaute.new {
+      visibility: visible;
+   }
+
+   .pochette {
+      /* margin-top: 120px; */
+      width: 100%;
+      display: flex;
+      justify-content: center;
+
+   }
+
+   .pochette img {
+      width: 60%;
+      aspect-ratio: 1/1;
+      border-radius: 10px;
+   }
+
+
+   .titre {
+      font-size: 30px;
+      margin-top: 40px;
+   }
+
+   .album {
+      font-size: 20px;
+      margin-top: 15px;
+   }
+
+   .group {
+      font-size: 20px;
+      margin-top: 15px;
+   }
+
+   .annee {
+      font-size: 20px;
+      margin-top: 15px;
+   }
+
+   .timestamp {
+      /* margin-top: 120px; */
+      width: 100%;
+      display: flex;
+      align-items: center;
+
+      width: 80%;
+      gap: 10px;
+   }
+
+   .delta {
+      font-size: 20px;
+      margin-right: 10px;
+   }
+
+   .progressBar {
+      width: 100%;
+      height: 8px;
+      background: #fff;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+
+      border: 1px solid #fff;
+      border-radius: 10px;
+   }
+
+   .progress {
+      width: 40%;
+      height: 100%;
+      border-radius: 10px;
+      background: #000;
+   }
+
+   .button {
+      cursor: pointer;
+      position: relative;
+      width: 24px;
+      height: 24px;
+   }
+
+   .pause, .play {
+      position: absolute;
+      top: 0;
+      left: 0;
+   }
+
+   .pause {
+      display: none;
+   }
+
+   .button.isplaying .play {
+      display: none;
+   }
+   
+   .button.isplaying .pause {
+      display: flex;
+   }
+
+   .top,
+   .mid,
+   .bottom {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+   }
+
+   .online {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      gap: 10px;
+      font-size: 20px;
+      color: #fff;
+   }
+
+   @media screen and (max-width: 600px) {
+      
+      
+   }
+</style>
+
+<body>
+
+
+   <div class="container">
+
+      <div class="content">
+
+         <div class="online">
+            online <span>2</span>
+         </div>
+
+         <div class="top">
+
+            <div class="heure">12 h 30 min 12 s</div>
+            <div class="date">Lundi 22 septembre 2025</div>
+         </div>
+
+         <div class="mid">
+
+            <div class="nouveaute new">
+               <span>
+                  Nouveauté !!
+               </span>
+            </div>
+
+            <div class="pochette">
+               <img src="./pochette.jpg">
+            </div>
+
+
+            <div class="titre">Roxanne</div>
+            <div class="album">Roxannne</div>
+            <div class="group">The Police</div>
+            <div class="annee">1970</div>
+         </div>
+
+
+         <div class="bottom">
+
+            <div class="timestamp">
+               <div class="delta">02:12</div>
+               <div class="progressBar">
+                  <div class="progress"></div>
+               </div>
+               <div class="button isplaying">
+                  <svg class="play" xmlns="http://www.w3.org/2000/svg" fill="#fff" width="24px" height="24px" viewBox="0 0 24 24">
+                     <path
+                        d="M5.536 21.886a1.004 1.004 0 0 0 1.033-.064l13-9a1 1 0 0 0 0-1.644l-13-9A1 1 0 0 0 5 3v18a1 1 0 0 0 .536.886z" />
+                  </svg>
+
+
+                  <svg class="pause" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 16 16" fill="none">
+                     <path d="M7 1H2V15H7V1Z" fill="#fff" />
+                     <path d="M14 1H9V15H14V1Z" fill="#fff" />
+                  </svg>
+
+               </div>
+            </div>
+
+         </div>
+
+
+
+      </div>
+
+   </div>
+
+</body>
+
+<script>
+
+
+
+</script>
+
+</html>
