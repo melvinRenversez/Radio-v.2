@@ -1,5 +1,14 @@
 [
     {
+        "label": "lldb",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "lldb",
+        "description": "lldb",
+        "detail": "lldb",
+        "documentation": {}
+    },
+    {
         "label": "subprocess",
         "kind": 6,
         "isExtraImport": true,
@@ -27,6 +36,23 @@
         "documentation": {}
     },
     {
+        "label": "Image",
+        "importPath": "PIL",
+        "description": "PIL",
+        "isExtraImport": true,
+        "detail": "PIL",
+        "documentation": {}
+    },
+    {
+        "label": "handle_new_rx_page",
+        "kind": 2,
+        "importPath": "flutter.ios.Flutter.ephemeral.flutter_lldb_helper",
+        "description": "flutter.ios.Flutter.ephemeral.flutter_lldb_helper",
+        "peekOfCode": "def handle_new_rx_page(frame: lldb.SBFrame, bp_loc, extra_args, intern_dict):\n    \"\"\"Intercept NOTIFY_DEBUGGER_ABOUT_RX_PAGES and touch the pages.\"\"\"\n    base = frame.register[\"x0\"].GetValueAsAddress()\n    page_len = frame.register[\"x1\"].GetValueAsUnsigned()\n    # Note: NOTIFY_DEBUGGER_ABOUT_RX_PAGES will check contents of the\n    # first page to see if handled it correctly. This makes diagnosing\n    # misconfiguration (e.g. missing breakpoint) easier.\n    data = bytearray(page_len)\n    data[0:8] = b'IHELPED!'\n    error = lldb.SBError()",
+        "detail": "flutter.ios.Flutter.ephemeral.flutter_lldb_helper",
+        "documentation": {}
+    },
+    {
         "label": "MCD_FILE",
         "kind": 5,
         "importPath": "mocodo.live",
@@ -42,6 +68,33 @@
         "description": "mocodo.live",
         "peekOfCode": "WORK_DIR = r\"./\"\nprint(\"=== Live Mocodo Server ===\")\nprint(f\"Surveillance du fichier : {MCD_FILE}\")\nprint(\"Appuie sur Ctrl+C pour arrêter.\\n\")\nwhile True:\n   try:\n      # Exécuter Mocodo\n      print(\"[INFO] Génération du schéma...\")\n      subprocess.run(\n         [\"python\", \"-m\", \"mocodo\", \"--input\", MCD_FILE],",
         "detail": "mocodo.live",
+        "documentation": {}
+    },
+    {
+        "label": "get_average_color",
+        "kind": 2,
+        "importPath": "Web.test",
+        "description": "Web.test",
+        "peekOfCode": "def get_average_color(image_path):\n    # Ouvrir l'image\n    img = Image.open(image_path)\n    # Réduire l'image à 1 pixel pour obtenir la couleur moyenne\n    img = img.resize((1, 1))\n    # Récupérer la couleur de ce pixel\n    avg_color = img.getpixel((0, 0))\n    return avg_color\n# Exemple d'utilisation\nimage_path = \"pochette.jpg\"  # Mets le chemin vers ta pochette",
+        "detail": "Web.test",
+        "documentation": {}
+    },
+    {
+        "label": "image_path",
+        "kind": 5,
+        "importPath": "Web.test",
+        "description": "Web.test",
+        "peekOfCode": "image_path = \"pochette.jpg\"  # Mets le chemin vers ta pochette\naverage_color = get_average_color(image_path)\nprint(\"Couleur moyenne (R, G, B):\", average_color)",
+        "detail": "Web.test",
+        "documentation": {}
+    },
+    {
+        "label": "average_color",
+        "kind": 5,
+        "importPath": "Web.test",
+        "description": "Web.test",
+        "peekOfCode": "average_color = get_average_color(image_path)\nprint(\"Couleur moyenne (R, G, B):\", average_color)",
+        "detail": "Web.test",
         "documentation": {}
     }
 ]

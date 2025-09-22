@@ -8,13 +8,38 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-app.use(express.static(__dirname));
-
 
 var currentTrack = {};
 
+app.use(express.static(__dirname));
+
+
+// ---------- ROUTE ---------- 
+
+app.get("/getTime", (req, res) => {
+   res.json(currentTrack.currentTime );
+});
+
+app.get("/getCurrentTrack", (req, res) => {
+   res.json( currentTrack );
+});
+
+app.get("/", (req, res) => {
+   res.sendFile(path.join(__dirname, "index.html"));
+});
+
+app.listen(3000, () => {
+   console.log("Serveur en ligne sur le port 3000 http://localhost:3000");
+});
+
+
+
+
+// ---------- FUNCTION ---------- 
+
 
 async function getTitres() {
+
 
    const conn = mysql.createConnection({
       host: "91.168.244.154",
@@ -25,37 +50,32 @@ async function getTitres() {
    });
 
    const query = `
-      SELECT 
-         t.id,
-         t.titre,
-         t.url,
-         al.libelle AS album,
-         al.annee,
-         al.pochette,
-         ar.nom AS artiste
-      FROM titres t
-      JOIN albums al ON al.id = t.fk_album
-      JOIN artistes ar ON ar.id = al.fk_artiste
-      WHERE t.id NOT IN (
-         SELECT fk_titre 
-         FROM (
+         SELECT 
+            t.id,
+            t.titre,
+            t.url,
+            al.libelle AS album,
+            al.annee,
+            al.pochette,
+            ar.nom AS artiste
+         FROM titres t
+         JOIN albums al ON al.id = t.fk_album
+         JOIN artistes ar ON ar.id = al.fk_artiste
+         WHERE t.id NOT IN (
             SELECT fk_titre 
-            FROM historiques 
-            ORDER BY played_at DESC 
-            LIMIT 10
-         ) AS h_recent
-      )
-      ORDER BY t.titre ASC;
-      `;
+            FROM (
+               SELECT fk_titre 
+               FROM historiques 
+               ORDER BY played_at DESC 
+               LIMIT 10
+            ) AS h_recent
+         )
+         ORDER BY t.titre ASC;
+         `;
 
 
    const [rows] = await (await conn).query(query);
-
-   const length = rows.length;
-   const r = Math.floor(Math.random() * length);
-   
-   const track = rows[r];
-   console.log(`Piste choisie : ${track.titre}, Parmi ${length} pistes disponibles`);
+   const track = rows[Math.floor(Math.random() * (rows.length))];
 
    currentTrack.id = track.id;
    currentTrack.titre = track.titre;
@@ -65,13 +85,11 @@ async function getTitres() {
    currentTrack.pochette = track.pochette;
    currentTrack.artiste = track.artiste;
 
-   getTimeTrack(track.url);
+   getTimeTrack(track.url)
    addHistoriques(track.id);
-
 }
 
 async function addHistoriques(id) {
-
    const conn = await mysql.createConnection({
       host: "91.168.244.154",
       port: 51336,
@@ -89,22 +107,8 @@ async function addHistoriques(id) {
    } finally {
       await conn.end();
    }
-
 }
 
-getTitres();
-
-
-
-
-
-app.get("/", (req, res) => {
-   res.sendFile(path.join(__dirname, "index.html"));
-});
-
-app.listen(3000, () => {
-   console.log("Serveur en ligne sur le port 3000");
-});
 
 async function getTimeTrack(track) {
    const filePath = path.join(__dirname, "Music", track);
@@ -125,4 +129,29 @@ async function getTimeTrack(track) {
 
 
    console.log(currentTrack)
+   playTrack();
 }
+
+function playTrack() {
+
+   if (currentTrack == {}) return
+
+   const duree = currentTrack.duree;
+   currentTrack.currentTime = 0;
+
+
+   const interval = setInterval(() => {
+      currentTrack.currentTime += 1;
+      console.log(currentTrack)
+      if (currentTrack.currentTime >= duree) {
+         currentTrack.currentTime = 0;
+         currentTrack = {};
+         clearInterval(interval);
+         getTitres();
+      }
+   }, 1000);
+
+}
+
+
+getTitres();
