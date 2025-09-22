@@ -1,0 +1,47 @@
+[
+    {
+        "label": "subprocess",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "subprocess",
+        "description": "subprocess",
+        "detail": "subprocess",
+        "documentation": {}
+    },
+    {
+        "label": "time",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "time",
+        "description": "time",
+        "detail": "time",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "MCD_FILE",
+        "kind": 5,
+        "importPath": "mocodo.live",
+        "description": "mocodo.live",
+        "peekOfCode": "MCD_FILE = \"mocodo.mcd\"\n# Dossier où se trouve le fichier\nWORK_DIR = r\"./\"\nprint(\"=== Live Mocodo Server ===\")\nprint(f\"Surveillance du fichier : {MCD_FILE}\")\nprint(\"Appuie sur Ctrl+C pour arrêter.\\n\")\nwhile True:\n   try:\n      # Exécuter Mocodo\n      print(\"[INFO] Génération du schéma...\")",
+        "detail": "mocodo.live",
+        "documentation": {}
+    },
+    {
+        "label": "WORK_DIR",
+        "kind": 5,
+        "importPath": "mocodo.live",
+        "description": "mocodo.live",
+        "peekOfCode": "WORK_DIR = r\"./\"\nprint(\"=== Live Mocodo Server ===\")\nprint(f\"Surveillance du fichier : {MCD_FILE}\")\nprint(\"Appuie sur Ctrl+C pour arrêter.\\n\")\nwhile True:\n   try:\n      # Exécuter Mocodo\n      print(\"[INFO] Génération du schéma...\")\n      subprocess.run(\n         [\"python\", \"-m\", \"mocodo\", \"--input\", MCD_FILE],",
+        "detail": "mocodo.live",
+        "documentation": {}
+    }
+]
