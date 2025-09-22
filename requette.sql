@@ -34,7 +34,7 @@ CREATE TABLE historiques (
 drop table artistes;
 drop table albums;
 drop table titres;
-drop table historique;
+drop table historiques;
 
 
 -- 1. Insérer les artistes
@@ -105,6 +105,9 @@ INSERT INTO historiques (fk_titre, played_at) VALUES
 
 -- System Of A Down (5 titres)
 (14, '2025-09-22 15:25:00'), -- Sugar
+(11, '2025-09-22 15:00:00'), -- Aerials
+(12, '2025-09-22 15:10:00'), -- Chop Suey
+(13, '2025-09-22 15:15:00'), -- Lonely Day
 (15, '2025-09-22 15:35:00'); -- Toxicity
 
 
@@ -112,13 +115,37 @@ INSERT INTO historiques (fk_titre, played_at) VALUES
 select * from titres;
 select * from albums;
 select * from artistes;
-select * from historiques;
+select * from historiques order by played_at DESC;
 
-select t.id, t.titre, t.url, al.libelle as album, al.pochette, ar.nom as artiste 
-from titres t
-join albums al on al.id = t.fk_album
-join artistes ar on ar.id = al.fk_artiste
-join historiques h on h.fk_titre = t.id;
+SELECT 
+    t.id,
+    t.titre,
+    t.url,
+    al.libelle AS album,
+    al.annee,
+    al.pochette,
+    ar.nom AS artiste
+FROM titres t
+JOIN albums al ON al.id = t.fk_album
+JOIN artistes ar ON ar.id = al.fk_artiste
+WHERE t.id NOT IN (
+    SELECT fk_titre 
+    FROM (
+        SELECT fk_titre 
+        FROM historiques 
+        ORDER BY played_at DESC 
+        LIMIT 10
+    ) AS h_recent
+)
+ORDER BY t.titre ASC;
+
+
+INSERT INTO historiques (fk_titre, played_at) VALUES
+(1, '2025-09-23 10:30:00');
+
+
+select fk_titre from historiques limit 10;
+
 
 SELECT 
     h.id AS historique_id,
