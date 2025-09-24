@@ -10,8 +10,10 @@
 <body>
 
 
-   <audio src="" id="audio" controls></audio>
+   <audio src="" id="audio"></audio>
 
+
+   <img src="" id="img">
 
 
    <button onclick="PLAY()">play</button>
@@ -24,16 +26,16 @@
 <script>
 
    const audio = document.getElementById("audio");
+   const img = document.getElementById("img");
 
    var currentTrack = {};
 
    function PLAY() {
-      audio.play();
       getTime();
-      initTrack();
    }
 
    function initTrack() {
+      img.src = `Pochette/${currentTrack.pochette}`;
       audio.src = `Music/${currentTrack.url}`;
       audio.volume = 0.1;
       audio.currentTime = currentTrack.currentTime;
@@ -55,6 +57,8 @@
          .then(data => {
             console.log(data);
             currentTrack.currentTime = parseInt(data);
+            initTrack();
+            audio.play();
          });
    }
 

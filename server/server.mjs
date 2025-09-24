@@ -3,35 +3,39 @@ import path from "path";
 import { fileURLToPath } from 'url';
 import { parseFile } from "music-metadata";
 import mysql from "mysql2/promise";
+import cors from "cors";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
+app.use(cors());
 
 var currentTrack = {};
 
 app.use(express.static(__dirname));
 
 
+
 // ---------- ROUTE ---------- 
 
 app.get("/getTime", (req, res) => {
-   res.json(currentTrack.currentTime );
+   res.json(currentTrack.currentTime);
+   console.log("get time")
 });
 
 app.get("/getCurrentTrack", (req, res) => {
-   res.json( currentTrack );
+   res.json(currentTrack);
+   console.log("get current track")
 });
 
 app.get("/", (req, res) => {
    res.sendFile(path.join(__dirname, "index.html"));
 });
 
-app.listen(3000, () => {
-   console.log("Serveur en ligne sur le port 3000 http://localhost:3000");
+app.listen(3000, '0.0.0.0', () => {
+   console.log("Server running on http://localhost:3000");
 });
-
 
 
 
@@ -142,7 +146,10 @@ function playTrack() {
 
    const interval = setInterval(() => {
       currentTrack.currentTime += 1;
-      console.log(currentTrack)
+      const minutes = Math.floor(currentTrack.currentTime / 60);
+      const seconds = Math.floor(currentTrack.currentTime % 60);
+      console.log(`Durée formatée : ${minutes}:${seconds.toString().padStart(2, "0")} :: ${currentTrack.currentTime}`);
+      // console.log(currentTrack)
       if (currentTrack.currentTime >= duree) {
          currentTrack.currentTime = 0;
          currentTrack = {};
